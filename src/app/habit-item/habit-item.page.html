@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/habit-list"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add/Edit Habit</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #habitForm="ngForm" (ngSubmit)="submitHabit(habitForm.value)">
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label position="stacked">I want to achieve</ion-label>
+        <ion-input
+          required
+          type="text"
+          name="name"
+          [(ngModel)]="habit.name"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Because I want to </ion-label>
+        <ion-textarea
+          name="description"
+          [(ngModel)]="habit.description"
+        ></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <div class="frequency-circles">
+          <div
+            *ngFor="let num of [1,2,3,4,5,6,7]"
+            class="circle"
+            [class.selected]="habit.frequency >= num"
+            [class.circle-focused]="selectedFrequency === num"
+            [ngStyle]="{'background-color': (habit.frequency >= num) ? habit.color : null}"
+            (click)="selectFrequency(num)"
+          ></div>
+          <div position="stacked">times a week</div>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">For how many weeks?</ion-label>
+        <div class="input-with-suffix">
+          <ion-input
+            required
+            type="number"
+            name="duration"
+            [(ngModel)]="habit.duration"
+          ></ion-input>
+          <div class="suffix">weeks</div>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Starting from</ion-label>
+        <div *ngIf="formattedStartDate" (click)="clearStartDate()">
+          {{ formattedStartDate }}
+        </div>
+        <ion-datetime
+          *ngIf="!formattedStartDate"
+          presentation="date"
+          displayFormat="YYYY-MM-DD"
+          pickerFormat="YYYY MMM DD"
+          name="startDate"
+          [preferWheel]="true"
+          [max]="2025"
+          [(ngModel)]="habit.startDate"
+          (ionChange)="updateFormattedStartDate($event.detail.value)"
+        ></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Color</ion-label>
+        <app-color-picker
+          (colorSelected)="onColorSelected($event)"
+        ></app-color-picker>
+        <input type="hidden" name="color" [(ngModel)]="habit.color" />
+      </ion-item>
+    </ion-list>
+
+    <ion-button
+      expand="block"
+      type="submit"
+      class="ion-margin"
+      [ngStyle]="{'--background': habitForm.valid ? habit.color : '#cccccc', '--background-activated': habit.color}"
+      >Save Habit</ion-button
+    >
+  </form>
+</ion-content>

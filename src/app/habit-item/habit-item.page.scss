@@ -1,0 +1,32 @@
+.frequency-circles {
+    display: flex;
+    justify-content: space-around;
+    padding: 3px;
+  }
+  
+  .circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ddd;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  
+  .circle.selected {
+    background-color: #4285F4; /* Change this color to match your app's theme */
+  }
+
+  .input-with-suffix {
+    display: flex;
+    align-items: center;
+    width: 30%;
+  }
+  
+  .input-with-suffix .suffix {
+    margin-left: 8px; /* Adjust as needed */
+  }
+  
+  ion-input {
+    flex-grow: 1;
+  }

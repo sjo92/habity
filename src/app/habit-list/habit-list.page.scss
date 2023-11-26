@@ -1,0 +1,20 @@
+.check-button {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  } 
+  .circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ddd;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  
+  .circle.selected {
+    background-color: #4285F4; /* Change this color to match your app's theme */
+  }

@@ -1,0 +1,23 @@
+<div class="color-picker">
+  <div
+    *ngFor="let color of colors"
+    class="color-tile"
+    [style.background-color]="color"
+    [class.circle-focused]="selectedColor === color"
+    (click)="selectColor(color)"
+  ></div>
+  <div
+    class="color-tile plus-button"
+    (click)="openColorPicker()"
+    *ngIf="!showColorPicker"
+  >
+    <ion-icon name="add"></ion-icon>
+  </div>
+  <ngx-colors
+    class="color-tile"
+    *ngIf="showColorPicker"
+    ngx-colors-trigger
+    [(ngModel)]="pickedColor"
+    (close)="addNewColor(pickedColor)"
+  ></ngx-colors>
+</div>

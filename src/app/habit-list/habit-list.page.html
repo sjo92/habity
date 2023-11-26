@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Habits</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- List of habit items -->
+  <ion-list>
+    <ion-item *ngFor="let habit of habitItems">
+      <!-- Check button -->
+      <div
+        class="check-button"
+        [ngStyle]="{'color': habit.isSelected ? habit.color : '#cccccc'}"
+        (click)="toggleHabitSelection(habit)"
+      >
+        <ion-icon
+          [name]="habit.isSelected ? 'checkmark-circle' : 'checkmark-circle-outline'"
+        ></ion-icon>
+      </div>
+
+      {{ habit.name }}
+      <div
+        *ngFor="let num of getFrequencyArray(habit.frequency)"
+        class="circle"
+        [class.selected]="num <= getWeeklyProgress(habit)"
+        [ngStyle]="{'background-color': num <= getWeeklyProgress(habit) ? habit.color : null}"
+      ></div>
+    </ion-item>
+  </ion-list>
+
+  <!-- Floating Action Button for adding a new habit -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addHabit()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
